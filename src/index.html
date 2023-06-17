@@ -35,6 +35,18 @@
             return { 'sum': s, 'carry': c };
         };
 
+        const fullAdder = (augend, addend, carry) => {
+            let temp = halfAdder(augend, addend);
+            let sum = xor(carry, temp.sum);
+            carry = and(carry, temp.sum);
+            carry = or(carry, temp.carry);
+
+            return {
+                'sum': sum,
+                'carry': carry
+            };
+        };
+
         addEventListener('DOMContentLoaded', (event) => {
             let equals = document.querySelector('#equalsButton');
 
@@ -45,18 +57,23 @@
                 let addend = document.querySelector('#addend').value;
                 let sum = '';
                 let result = null;
+                let carry = 0; /// No carry in the first iteration
 
                 for (let i = augend.length - 1; i >= 0; i--) {
-                    result = halfAdder(augend[i], addend[i]);
-                    console.debug(result);
+                    result = fullAdder(augend[i], addend[i], carry);
+                    sum = result.sum + sum;
+                    carry = result.carry;
 
-                    sum += result.sum;
-                    if (result.carry === 1) {
-                        sum += result.carry;
-                    }
+                    console.debug(i, augend[i], addend[i], result);
+                    
+                    func = fullAdder;
                 }
 
-                console.debug(reverse(sum));
+                if (carry === 1) {
+                    sum = carry + sum;
+                }
+
+                console.debug('sum', sum);
             });
         });
 
