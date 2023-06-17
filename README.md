@@ -1,0 +1,2 @@
+# Binaca
+Simple binary calculator
