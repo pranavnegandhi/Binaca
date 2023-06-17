@@ -32,7 +32,10 @@
             let s = xor(augend, addend);
             let c = and(augend, addend);
 
-            return { 'sum': s, 'carry': c };
+            return {
+                'sum': s,
+                'carry': c
+            };
         };
 
         const fullAdder = (augend, addend, carry) => {
@@ -76,8 +79,6 @@
                 console.debug('sum', sum);
             });
         });
-
-        const reverse = input => input.split('').reverse().join('');
     </script>
 </body>
 
