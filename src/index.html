@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Binary Calculator</title>
+</head>
+
+<body>
+    <form>
+        <p>Hello, world</p>
+        <label>Augend
+            <input id="augend" name="augend" value="11">
+        </label>
+
+        <label>Addend
+            <input id="addend" name="addend" value="10">
+        </label>
+
+        <p>
+            <input id="equalsButton" type="submit" value="=">
+        </p>
+    </form>
+
+    <script type="text/javascript">
+        const and = (op1, op2) => op1 & op2;
+
+        const or = (op1, op2) => op1 | op2;
+
+        const xor = (op1, op2) => op1 ^ op2;
+
+        const halfAdder = (augend, addend) => {
+            let s = xor(augend, addend);
+            let c = and(augend, addend);
+
+            return { 'sum': s, 'carry': c };
+        };
+
+        addEventListener('DOMContentLoaded', (event) => {
+            let equals = document.querySelector('#equalsButton');
+
+            equals.addEventListener('click', event => {
+                event.preventDefault();
+
+                let augend = document.querySelector('#augend').value;
+                let addend = document.querySelector('#addend').value;
+                let sum = '';
+                let result = null;
+
+                for (let i = augend.length - 1; i >= 0; i--) {
+                    result = halfAdder(augend[i], addend[i]);
+                    console.debug(result);
+
+                    sum += result.sum;
+                    if (result.carry === 1) {
+                        sum += result.carry;
+                    }
+                }
+
+                console.debug(sum);
+            });
+        });
+    </script>
+</body>
+
+</html>
