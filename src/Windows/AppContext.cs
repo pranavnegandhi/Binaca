@@ -30,7 +30,7 @@ namespace Notadesigner.Binaca
             _mainForm.ButtonDigitZero.Click += (sender, e) => AppendDigit('0');
             _mainForm.ButtonOperatorAdd.Click += (sender, e) => AppendOperator('+');
             _mainForm.ButtonOperatorSubtract.Click += (sender, e) => AppendOperator('-');
-            _mainForm.ButtonOperatorEquals.Click += Compute;
+            _mainForm.ButtonOperatorEquals.Click += (sender, e) => Compute();
 
             _mainForm.KeyPress += FormKeyPressHandler;
 
@@ -74,6 +74,10 @@ namespace Notadesigner.Binaca
 
                 case '-':
                     AppendOperator('-');
+                    break;
+
+                case '=':
+                    Compute();
                     break;
 
                 default:
@@ -143,7 +147,7 @@ namespace Notadesigner.Binaca
             _operand = null;
         }
 
-        private void Compute(object? sender, EventArgs e)
+        private void Compute()
         {
             if (null != _operation || null == _operand)
             {
