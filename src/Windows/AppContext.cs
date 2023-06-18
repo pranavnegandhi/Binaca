@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualBasic.Devices;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Notadesigner.Binaca
