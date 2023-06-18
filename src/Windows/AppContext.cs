@@ -29,6 +29,7 @@ namespace Notadesigner.Binaca
             _mainForm.ButtonDigitOne.Click += (sender, e) => AppendDigit('1');
             _mainForm.ButtonDigitZero.Click += (sender, e) => AppendDigit('0');
             _mainForm.ButtonOperatorAdd.Click += (sender, e) => AppendOperator('+');
+            _mainForm.ButtonOperatorSubtract.Click += (sender, e) => AppendOperator('-');
             _mainForm.ButtonOperatorEquals.Click += Compute;
 
             var binding = new Binding(nameof(Form1.textBox1.Text), this, nameof(Display));
@@ -60,7 +61,7 @@ namespace Notadesigner.Binaca
                 Display = string.Empty;
 
                 /// Save the operator in the infix expression
-                _infix.Add(new AddOperator());
+                _infix.Add(_operation);
                 _operation = null;
             }
 
@@ -94,6 +95,13 @@ namespace Notadesigner.Binaca
             if ('+' == op)
             {
                 _operation = new AddOperator();
+
+                _infix.Add(_operand);
+                _operand = null;
+            }
+            else if ('-' == op)
+            {
+                _operation = new SubtractOperator();
 
                 _infix.Add(_operand);
                 _operand = null;
@@ -133,7 +141,7 @@ namespace Notadesigner.Binaca
                 {
                     postfix.Add(token);
                 }
-                else if (token is AddOperator)
+                else if (token is AddOperator || token is SubtractOperator)
                 {
                     while (stack.Count > 0)
                     {

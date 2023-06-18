@@ -138,6 +138,6 @@
         public Button ButtonOperatorAdd;
         public Button ButtonOperatorEquals;
         private Button ButtonClearExpression;
-        private Button ButtonOperatorSubtract;
+        public Button ButtonOperatorSubtract;
     }
 }

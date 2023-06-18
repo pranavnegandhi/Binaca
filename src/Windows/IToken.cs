@@ -2,6 +2,6 @@
 {
     public interface IToken
     {
-        void Evaluate(Stack<int> results);
+        void Evaluate(Stack<int> stack);
     }
 }
