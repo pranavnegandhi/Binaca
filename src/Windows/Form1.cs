@@ -5,6 +5,7 @@ namespace Notadesigner.Binaca
         public Form1()
         {
             InitializeComponent();
+            KeyPreview = true; /// Intercept key presses
         }
     }
 }

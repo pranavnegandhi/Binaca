@@ -32,6 +32,8 @@ namespace Notadesigner.Binaca
             _mainForm.ButtonOperatorSubtract.Click += (sender, e) => AppendOperator('-');
             _mainForm.ButtonOperatorEquals.Click += Compute;
 
+            _mainForm.KeyPress += FormKeyPressHandler;
+
             var binding = new Binding(nameof(Form1.textBox1.Text), this, nameof(Display));
             _mainForm.textBox1.DataBindings.Add(binding);
         }
@@ -52,6 +54,31 @@ namespace Notadesigner.Binaca
                 _display = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void FormKeyPressHandler(object? sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '1':
+                    AppendDigit('1');
+                    break;
+
+                case '0':
+                    AppendDigit('0');
+                    break;
+
+                case '+':
+                    AppendOperator('+');
+                    break;
+
+                case '-':
+                    AppendOperator('-');
+                    break;
+
+                default:
+                    break;
+            };
         }
 
         private void AppendDigit(char digit)
