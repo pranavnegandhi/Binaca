@@ -34,6 +34,8 @@
             ButtonDigitZero = new Button();
             ButtonOperatorAdd = new Button();
             ButtonOperatorEquals = new Button();
+            ButtonClearExpression = new Button();
+            ButtonOperatorSubtract = new Button();
             SuspendLayout();
             // 
             // ButtonClearAll
@@ -56,10 +58,10 @@
             // 
             // textBox1
             // 
-            textBox1.Enabled = false;
             textBox1.Location = new Point(12, 12);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(302, 23);
+            textBox1.ReadOnly = true;
+            textBox1.Size = new Size(318, 23);
             textBox1.TabIndex = 0;
             textBox1.TextAlign = HorizontalAlignment.Right;
             // 
@@ -83,18 +85,38 @@
             // 
             // ButtonOperatorEquals
             // 
-            ButtonOperatorEquals.Location = new Point(174, 71);
+            ButtonOperatorEquals.Location = new Point(255, 42);
             ButtonOperatorEquals.Name = "ButtonOperatorEquals";
-            ButtonOperatorEquals.Size = new Size(75, 23);
-            ButtonOperatorEquals.TabIndex = 22;
+            ButtonOperatorEquals.Size = new Size(75, 52);
+            ButtonOperatorEquals.TabIndex = 23;
             ButtonOperatorEquals.Text = "=";
             ButtonOperatorEquals.UseVisualStyleBackColor = true;
+            // 
+            // ButtonClearExpression
+            // 
+            ButtonClearExpression.Location = new Point(12, 71);
+            ButtonClearExpression.Name = "ButtonClearExpression";
+            ButtonClearExpression.Size = new Size(75, 23);
+            ButtonClearExpression.TabIndex = 1;
+            ButtonClearExpression.Text = "CE";
+            ButtonClearExpression.UseVisualStyleBackColor = true;
+            // 
+            // ButtonOperatorSubtract
+            // 
+            ButtonOperatorSubtract.Location = new Point(174, 71);
+            ButtonOperatorSubtract.Name = "ButtonOperatorSubtract";
+            ButtonOperatorSubtract.Size = new Size(75, 23);
+            ButtonOperatorSubtract.TabIndex = 22;
+            ButtonOperatorSubtract.Text = "-";
+            ButtonOperatorSubtract.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ButtonOperatorSubtract);
+            Controls.Add(ButtonClearExpression);
             Controls.Add(ButtonOperatorEquals);
             Controls.Add(ButtonOperatorAdd);
             Controls.Add(ButtonDigitZero);
@@ -115,5 +137,7 @@
         public Button ButtonDigitZero;
         public Button ButtonOperatorAdd;
         public Button ButtonOperatorEquals;
+        private Button ButtonClearExpression;
+        private Button ButtonOperatorSubtract;
     }
 }
