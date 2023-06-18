@@ -137,7 +137,7 @@
         public Button ButtonDigitZero;
         public Button ButtonOperatorAdd;
         public Button ButtonOperatorEquals;
-        private Button ButtonClearExpression;
+        public Button ButtonClearExpression;
         public Button ButtonOperatorSubtract;
     }
 }

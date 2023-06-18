@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.VisualBasic.Devices;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace Notadesigner.Binaca
@@ -26,6 +27,7 @@ namespace Notadesigner.Binaca
             MainForm.AcceptButton = _mainForm.ButtonOperatorEquals;
 
             _mainForm.ButtonClearAll.Click += (sender, e) => Clear();
+            _mainForm.ButtonClearExpression.Click += (sender, e) => ClearExpression();
             _mainForm.ButtonDigitOne.Click += (sender, e) => AppendDigit('1');
             _mainForm.ButtonDigitZero.Click += (sender, e) => AppendDigit('0');
             _mainForm.ButtonOperatorAdd.Click += (sender, e) => AppendOperator('+');
@@ -82,7 +84,14 @@ namespace Notadesigner.Binaca
 
                 case 'c':
                 case 'C':
-                    Clear();
+                    if (Control.ModifierKeys == Keys.Shift)
+                    {
+                        ClearExpression();
+                    }
+                    else
+                    {
+                        Clear();
+                    }
                     break;
 
                 default:
@@ -149,6 +158,12 @@ namespace Notadesigner.Binaca
             _infix.Clear();
             Display = "0";
             _operation = null;
+            _operand = null;
+        }
+
+        private void ClearExpression()
+        {
+            Display = "0";
             _operand = null;
         }
 
