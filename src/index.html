@@ -8,17 +8,46 @@
 <body>
     <form>
         <p>Hello, world</p>
-        <label>Augend
-            <input id="augend" name="augend" value="11">
+        <label>Operand One
+            <input id="operandOne" name="operandOne" value="11">
         </label>
 
-        <label>Addend
-            <input id="addend" name="addend" value="10">
+        <label>Operand Two
+            <input id="operandTwo" name="operandTwo" value="10">
         </label>
 
         <p>
-            <input id="equalsButton" type="submit" value="=">
+            <input id="addButton" type="submit" value="+">
         </p>
+
+        <p>
+            <input id="subtractButton" type="submit" value="-">
+        </p>
+
+        <input type="text" value="0">
+        <ul id="controller">
+            <li>
+                <input type="submit" value="C">
+            </li>
+            <li>
+                <input type="submit" value="CE">
+            </li>
+            <li>
+                <input type="submit" value="+">
+            </li>
+            <li>
+                <input type="submit" value="-">
+            </li>
+            <li>
+                <input type="submit" value="=">
+            </li>
+            <li>
+                <input type="submit" value="1">
+            </li>
+            <li>
+                <input type="submit" value="0">
+            </li>
+        </ul>
     </form>
 
     <script type="text/javascript">
@@ -28,9 +57,9 @@
 
         const xor = (op1, op2) => op1 ^ op2;
 
-        const halfAdder = (augend, addend) => {
-            let s = xor(augend, addend);
-            let c = and(augend, addend);
+        const halfAdder = (operandOne, operandTwo) => {
+            let s = xor(operandOne, operandTwo);
+            let c = and(operandOne, operandTwo);
 
             return {
                 'sum': s,
@@ -38,8 +67,8 @@
             };
         };
 
-        const fullAdder = (augend, addend, carry) => {
-            let temp = halfAdder(augend, addend);
+        const fullAdder = (operandOne, operandTwo, carry) => {
+            let temp = halfAdder(operandOne, operandTwo);
             let sum = xor(carry, temp.sum);
             carry = and(carry, temp.sum);
             carry = or(carry, temp.carry);
@@ -50,26 +79,42 @@
             };
         };
 
-        addEventListener('DOMContentLoaded', (event) => {
-            let equals = document.querySelector('#equalsButton');
+        const halfSubtractor = (operandOne, operandTwo) => {
+            let d = xor(operandOne, operandTwo);
+            let b = and(!operandOne, operandTwo);
 
-            equals.addEventListener('click', event => {
+            return {
+                'difference': d,
+                'borrow': b
+            };
+        };
+
+        const fullSubtractor = (operandOne, operandTwo, borrow) => {
+            let temp = halfSubtractor(operandOne, operandTwo);
+            let difference = xor(operandOne, operandTwo);
+        };
+
+        addEventListener('DOMContentLoaded', (event) => {
+            let addButton = document.querySelector('#addButton');
+
+            addButton.addEventListener('click', event => {
                 event.preventDefault();
 
-                let augend = document.querySelector('#augend').value;
-                let addend = document.querySelector('#addend').value;
+                let operandOne = document.querySelector('#operandOne').value;
+                let operandTwo = document.querySelector('#operandTwo').value;
                 let sum = '';
                 let result = null;
                 let carry = 0; /// No carry in the first iteration
 
-                for (let i = augend.length - 1; i >= 0; i--) {
-                    result = fullAdder(augend[i], addend[i], carry);
+                for (let i = operandOne.length - 1; i >= 0; i--) {
+                    let d1 = parseInt(operandOne[i]);
+                    let d2 = parseInt(operandTwo[i]);
+
+                    result = fullAdder(d1, d2, carry);
                     sum = result.sum + sum;
                     carry = result.carry;
 
-                    console.debug(i, augend[i], addend[i], result);
-                    
-                    func = fullAdder;
+                    console.debug(i, d1, d2, result);
                 }
 
                 if (carry === 1) {
@@ -78,8 +123,59 @@
 
                 console.debug('sum', sum);
             });
+
+            let subtractButton = document.querySelector('#subtractButton');
+
+            subtractButton.addEventListener('click', event => {
+                event.preventDefault();
+
+                let operandOne = document.querySelector('#operandOne').value;
+                let operandTwo = document.querySelector('#operandTwo').value;
+                let result = null;
+
+                for (let i = operandOne.length - 1; i >= 0; i--) {
+                    let d1 = parseInt(operandOne[i]);
+                    let d2 = parseInt(operandTwo[i]);
+
+                    result = halfSubtractor(d1, d2);
+
+                    console.debug(i, d1, d2, result);
+                }
+
+                console.debug(result);
+            });
         });
     </script>
+    <style>
+        form {
+            width: 10em;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        ul#controller {
+            background-color: red;
+            padding: 1px 2px;
+            overflow: hidden;
+            width: 100%;
+            border: 2px solid black;
+        }
+
+        ul#controller li {
+            list-style-type: none;
+            padding: 0.5em;
+            margin: 0;
+            float: left;
+        }
+
+        ul#controller li input {
+            width: 3em;
+            height: 3em;
+        }
+    </style>
 </body>
 
 </html>
