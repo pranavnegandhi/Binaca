@@ -116,10 +116,6 @@ namespace Notadesigner.Binaca
             _operand = null;
         }
 
-        private void Subtract(object? sender, EventArgs e)
-        {
-        }
-
         private void Compute(object? sender, EventArgs e)
         {
             if (null != _operation || null == _operand)
