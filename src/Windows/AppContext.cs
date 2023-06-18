@@ -80,6 +80,11 @@ namespace Notadesigner.Binaca
                     Compute();
                     break;
 
+                case 'c':
+                case 'C':
+                    Clear();
+                    break;
+
                 default:
                     break;
             };
