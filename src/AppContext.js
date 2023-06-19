@@ -24,6 +24,38 @@ const AppContext = function () {
 
     const appModel = new AppModel();
 
+    document.addEventListener('keyup', event => {
+        switch (event.key) {
+            case '1':
+                appendDigit(1);
+                break;
+
+            case '0':
+                appendDigit(0);
+                break;
+
+            case '+':
+                appendOperator('+');
+                break;
+
+            case '-':
+                appendOperator('-');
+                break;
+
+            case '=':
+                compute();
+                break;
+
+            case 'c':
+                clear();
+                break;
+
+            case 'C':
+                clearExpression();
+                break;
+        }
+    });
+
     let _infix = [];
 
     let _display;
@@ -39,7 +71,7 @@ const AppContext = function () {
         _operand = null;
     };
 
-    const clearExpression = function() {
+    const clearExpression = function () {
         setDisplay('0');
         _operand = null;
     }
@@ -114,7 +146,7 @@ const AppContext = function () {
             if (token.getType() === 'integerToken') {
                 postfix.push(token);
             } else if (token.getType() === 'addToken' ||
-                        token.getType() === 'subtractToken') {
+                token.getType() === 'subtractToken') {
                 while (stack.length > 0) {
                     var d = stack.pop();
                     postfix.push(d);
