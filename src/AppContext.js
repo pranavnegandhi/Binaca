@@ -16,6 +16,8 @@ const AppContext = function () {
 
     const digitDisplay = document.querySelector('#digitDisplay');
 
+    const appModel = new AppModel();
+
     let _infix = [];
 
     let _display;
@@ -60,7 +62,7 @@ const AppContext = function () {
         result = parseInt(temp, 2);
         /// Create an operand token and store in a field
         /// to be added later to the end of the infix list
-        _operand = result;
+        _operand = new IntegerToken(result);
     }
 
     const appendOperator = function (operator) {
@@ -70,7 +72,7 @@ const AppContext = function () {
         }
 
         if ('+' == operator) {
-            _operation = '+';
+            _operation = new AddToken();
 
             _infix.push(_operand);
             _operand = null;
@@ -87,6 +89,8 @@ const AppContext = function () {
             return;
         }
 
+        const op = new AddToken();
+
         _infix.push(_operand);
         _operand = null;
 
@@ -96,9 +100,9 @@ const AppContext = function () {
         for (var i = 0; i < _infix.length; i++) {
             var token = _infix[i];
 
-            if (token !== '+' && token !== '-') {
+            if (token.getType() === 'integerToken') {
                 postfix.push(token);
-            } else if (token === '+' || token === '-') {
+            } else if (token.getType() === 'addToken') {
                 while (stack.length > 0) {
                     var d = stack.pop();
                     postfix.push(d);
@@ -108,17 +112,15 @@ const AppContext = function () {
             }
         }
 
-        while (stack.push > 0) {
-            var d = stack.Pop();
-            postfix.Add(d);
+        while (stack.length > 0) {
+            var d = stack.pop();
+            postfix.push(d);
         }
 
         clear();
 
-        console.log(postfix);
-
-        // var result = _model.Evaluate(postfix);
-        // Display = Convert.ToString(result, 2);
+        let result = appModel.evaluate(postfix);
+        setDisplay(result.toString(2));
     }
 
     setDisplay('0');
