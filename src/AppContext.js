@@ -169,9 +169,4 @@ const AppContext = function () {
     }
 
     setDisplay('0');
-
-    return {
-        getDisplay: getDisplay,
-        setDisplay: setDisplay
-    }
 };
