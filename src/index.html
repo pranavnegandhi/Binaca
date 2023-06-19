@@ -3,18 +3,75 @@
 
 <head>
     <title>Binary Calculator</title>
+    <style>
+        form {
+            width: 50%;
+            padding: 1em;
+            margin: 0 auto;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            display: block;
+            text-align: right;
+            margin: 0 0 1em 0;
+        }
+
+        div#controls {
+            display: flex;
+            flex-direction: row;
+            border: 2px solid #ffaa00;
+            width: 100%;
+        }
+
+        div#controls span.column {
+            display: flex;
+            flex-direction: column;
+            height: 4em;
+            width: 25%;
+            min-width: 4em;
+            padding: 1em;
+            background: #ffcc00;
+        }
+
+        div#controls input[type="button"] {
+            height: 2em;
+            width: 100%;
+            margin: 0 0 0.5em;
+        }
+
+        div#controls input#buttonOperatorEquals {
+            height: 4.5em;
+        }
+    </style>
 </head>
 
 <body>
     <form>
         <input type="text" id="digitDisplay">
-        <input type="button" id="buttonClearAll" value="C">
-        <input type="button" id="buttonClearExpression" value="CE">
-        <input type="button" id="buttonDigitOne" value="1">
-        <input type="button" id="buttonDigitZero" value="0">
-        <input type="button" id="buttonOperatorAdd" value="+">
-        <input type="button" id="buttonOperatorSubtract" value="-">
-        <input type="button" id="buttonOperatorEquals" value="=">
+        <div id="controls">
+            <span id="col-1" class="column">
+                <input type="button" id="buttonClearAll" value="C">
+                <input type="button" id="buttonClearExpression" value="CE">
+            </span>
+
+            <span id="col-2" class="column">
+                <input type="button" id="buttonDigitOne" value="1">
+                <input type="button" id="buttonDigitZero" value="0">
+            </span>
+
+            <span id="col-3" class="column">
+                <input type="button" id="buttonOperatorAdd" value="+">
+                <input type="button" id="buttonOperatorSubtract" value="-">
+            </span>
+
+            <span id="col-4" class="column">
+                <input type="button" id="buttonOperatorEquals" value="=">
+            </span>
+        </div>
     </form>
 
     <script src="AppContext.js"></script>
