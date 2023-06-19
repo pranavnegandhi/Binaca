@@ -2,6 +2,9 @@ const AppContext = function () {
     const buttonClearAll = document.querySelector('#buttonClearAll');
     buttonClearAll.addEventListener('click', () => clear());
 
+    const buttonClearExpression = document.querySelector('#buttonClearExpression');
+    buttonClearExpression.addEventListener('click', () => clearExpression());
+
     const buttonDigitOne = document.querySelector('#buttonDigitOne');
     buttonDigitOne.addEventListener('click', () => appendDigit('1'));
 
@@ -36,6 +39,11 @@ const AppContext = function () {
         _operand = null;
     };
 
+    const clearExpression = function() {
+        setDisplay('0');
+        _operand = null;
+    }
+    
     const getDisplay = () => _display;
 
     const setDisplay = (value) => {
