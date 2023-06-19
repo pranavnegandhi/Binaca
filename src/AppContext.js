@@ -43,7 +43,7 @@ const AppContext = function () {
         setDisplay('0');
         _operand = null;
     }
-    
+
     const getDisplay = () => _display;
 
     const setDisplay = (value) => {
@@ -133,6 +133,7 @@ const AppContext = function () {
 
         let result = appModel.evaluate(postfix);
         setDisplay(result.toString(2));
+        _operand = new IntegerToken(result);
     }
 
     setDisplay('0');
