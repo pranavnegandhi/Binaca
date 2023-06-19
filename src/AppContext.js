@@ -11,6 +11,9 @@ const AppContext = function () {
     const buttonOperatorAdd = document.querySelector('#buttonOperatorAdd');
     buttonOperatorAdd.addEventListener('click', () => appendOperator('+'));
 
+    const buttonOperatorSubtract = document.querySelector('#buttonOperatorSubtract');
+    buttonOperatorSubtract.addEventListener('click', () => appendOperator('-'));
+
     const buttonEquals = document.querySelector('#buttonOperatorEquals');
     buttonEquals.addEventListener('click', () => compute());
 
@@ -77,7 +80,7 @@ const AppContext = function () {
             _infix.push(_operand);
             _operand = null;
         } else if ('-' == operator) {
-            _operation = '-';
+            _operation = new SubtractToken();
 
             _infix.push(_operand);
             _operand = null;
@@ -102,7 +105,8 @@ const AppContext = function () {
 
             if (token.getType() === 'integerToken') {
                 postfix.push(token);
-            } else if (token.getType() === 'addToken') {
+            } else if (token.getType() === 'addToken' ||
+                        token.getType() === 'subtractToken') {
                 while (stack.length > 0) {
                     var d = stack.pop();
                     postfix.push(d);
