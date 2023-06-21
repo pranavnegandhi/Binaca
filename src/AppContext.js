@@ -64,7 +64,10 @@ const AppContext = function () {
 
     let _operand = null;
 
+    let _repeatBuffer = [];
+
     const clear = function () {
+        _repeatBuffer = [];
         _infix.splice(0, _infix.length);
         setDisplay('0');
         _operation = null;
@@ -106,6 +109,8 @@ const AppContext = function () {
         /// Create an operand token and store in a field
         /// to be added later to the end of the infix list
         _operand = new IntegerToken(result);
+        /// Clear the repeat buffer
+        _repeatBuffer.splice(0, _repeatBuffer.length);
     }
 
     const appendOperator = function (operator) {
@@ -119,11 +124,15 @@ const AppContext = function () {
 
             _infix.push(_operand);
             _operand = null;
+            /// Clear the repeat buffer
+            _repeatBuffer.splice(0, _repeatBuffer.length);
         } else if ('-' == operator) {
             _operation = new SubtractToken();
 
             _infix.push(_operand);
             _operand = null;
+            /// Clear the repeat buffer
+            _repeatBuffer.splice(0, _repeatBuffer.length);
         }
     };
 
@@ -131,8 +140,6 @@ const AppContext = function () {
         if (null != _operation || null == _operand) {
             return;
         }
-
-        const op = new AddToken();
 
         _infix.push(_operand);
         _operand = null;
@@ -161,11 +168,19 @@ const AppContext = function () {
             postfix.push(d);
         }
 
-        clear();
+        /// Add the tokens from the repeat buffer if it is not empty
+        if (_repeatBuffer.length > 0) {
+            postfix = postfix.concat(_repeatBuffer);
+        }
+
+        /// Clear the infix buffer
+        _infix.splice(0, _infix.length);
+
+        _repeatBuffer = postfix.slice(-2);
 
         let result = appModel.evaluate(postfix);
         setDisplay(result.toString(2));
-        _operand = new IntegerToken(result);
+        _operand = new IntegerToken(result); /// Store the result for later use in the infix buffer
     }
 
     setDisplay('0');

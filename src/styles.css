@@ -1,0 +1,112 @@
+body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f2cda6;
+}
+
+form {
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid;
+    height: 100%;
+    width: 100%;
+    max-width: max(40vw, 400px);
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #e3dfdc;
+}
+
+div#brand {
+    float: left;
+    margin: 0 0 0 1.8em;
+    width: 30px;
+    height: 50px;
+    background: linear-gradient(90deg, #d84b3d 0%, #d84b3d 30%,
+                                        #aaa 30%, #aaa 35%,
+                                        #dfbe3e 35%, #dfbe3e 60%,
+                                        #aaa 65%, #aaa 70%,
+                                        #0e548e 70%, #0e548e 100%);
+    text-indent: 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 1.8em;
+    line-height: 2.1em;
+}
+
+form label {
+    margin: -0.5em 1em 2em;
+    padding: 0em;
+    box-sizing: border-box;
+    border: 3px solid black;
+    display: block;
+    border-radius: 0.3em;
+}
+
+input[type="text"] {
+    text-align: right;
+    font-size: 3em;
+    line-height: 0;
+    font-family: monospace;
+    border: none;
+    width: 100%;
+    padding: 0 0.2em;
+    box-sizing: border-box;
+    background: #bfbfa1;
+}
+
+div#controls {
+    display: flex;
+    flex-direction: row;
+}
+
+div#controls span.column {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    min-width: 4em;
+    padding: 1em;
+    background: #d0c2b7;
+}
+
+div#controls input[type="button"] {
+    height: 100%;
+    width: 100%;
+    margin: 0 0 0.5em;
+    border-radius: 0.3em;
+    background: #f6f0eb;
+    border: 3px solid #e1d5cb;
+    color: #905e42;
+    font-weight: bold;
+    font-size: 2em;
+    box-shadow: 0.2em 0.2em 0.1em #aaa;
+}
+
+div#controls input[type="button"]:active {
+    box-shadow: 0.1em 0.1em 0.1em #aaa;
+}
+
+div#controls input#buttonClearAll {
+    background: #d76328;
+    border-color: #ac5225;
+    color: #ffe0b7;
+}
+
+div#controls input.operator {
+    background: #ecaf72;
+    border-color: #de9748;
+    color: #905e42;
+}
+
+div#controls input#buttonOperatorEquals {
+    background: #a49dab;
+    border-color: #8d8193;
+}
+
+div#controls input#buttonOperatorEquals {
+    height: 4.5em;
+}
