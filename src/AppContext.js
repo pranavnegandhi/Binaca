@@ -43,6 +43,7 @@ const AppContext = function () {
                 break;
 
             case '=':
+            case 'Enter':
                 compute();
                 break;
 
@@ -95,6 +96,12 @@ const AppContext = function () {
             _operation = null;
         }
 
+        if (_repeatBuffer.length > 0) {
+            /// Clear the repeat buffer
+            _repeatBuffer.splice(0, _repeatBuffer.length);
+            setDisplay('0');
+        }
+
         /// Three-step process to display the number without leading zeros
         /// 1. Append the digit to the end of the display
         /// 2. Evaluate it as an int
@@ -109,8 +116,6 @@ const AppContext = function () {
         /// Create an operand token and store in a field
         /// to be added later to the end of the infix list
         _operand = new IntegerToken(result);
-        /// Clear the repeat buffer
-        _repeatBuffer.splice(0, _repeatBuffer.length);
     }
 
     const appendOperator = function (operator) {
