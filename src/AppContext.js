@@ -43,6 +43,7 @@ const AppContext = function () {
                 break;
 
             case '=':
+            case 'Enter':
                 compute();
                 break;
 
@@ -58,7 +59,7 @@ const AppContext = function () {
 
     let _infix = [];
 
-    let _display;
+    let _digitDisplay;
 
     let _operation = null;
 
@@ -69,48 +70,56 @@ const AppContext = function () {
     const clear = function () {
         _repeatBuffer = [];
         _infix.splice(0, _infix.length);
-        setDisplay('0');
+        setDigitDisplay('0');
         _operation = null;
         _operand = null;
+        clearExpressionDisplay();
     };
 
     const clearExpression = function () {
-        setDisplay('0');
+        setDigitDisplay('0');
         _operand = null;
-    }
+    };
 
-    const getDisplay = () => _display;
+    const getDigitDisplay = () => _digitDisplay;
 
-    const setDisplay = (value) => {
-        _display = value.toString();
-        digitDisplay.value = _display;
+    const setDigitDisplay = (value) => {
+        _digitDisplay = value.toString();
+        digitDisplay.value = _digitDisplay;
     };
 
     const appendDigit = function (value) {
         if (null != _operation) {
-            setDisplay('0');
+            setDigitDisplay('0');
 
             /// Save the operator in the infix expression
             _infix.push(_operation);
             _operation = null;
         }
 
+        if (_repeatBuffer.length > 0) {
+            /// Clear the repeat buffer
+            _repeatBuffer.splice(0, _repeatBuffer.length);
+            setDigitDisplay('0');
+            clearExpressionDisplay();
+        }
+
         /// Three-step process to display the number without leading zeros
         /// 1. Append the digit to the end of the display
         /// 2. Evaluate it as an int
         /// 3. Convert the result to a string and display it on screen
-        var temp = getDisplay() + value;
+        var temp = getDigitDisplay() + value;
         var result = parseInt(temp);
         /// Display the binary number
-        setDisplay(result);
+        setDigitDisplay(result);
 
         /// Convert the binary number to decimal
         result = parseInt(temp, 2);
         /// Create an operand token and store in a field
         /// to be added later to the end of the infix list
         _operand = new IntegerToken(result);
-        /// Clear the repeat buffer
-        _repeatBuffer.splice(0, _repeatBuffer.length);
+
+        printExpression('');
     }
 
     const appendOperator = function (operator) {
@@ -134,6 +143,8 @@ const AppContext = function () {
             /// Clear the repeat buffer
             _repeatBuffer.splice(0, _repeatBuffer.length);
         }
+
+        printExpression(_operation.getValue());
     };
 
     const compute = function () {
@@ -143,6 +154,8 @@ const AppContext = function () {
 
         _infix.push(_operand);
         _operand = null;
+
+        printExpression('=');
 
         var postfix = [];
         var stack = [];
@@ -179,9 +192,27 @@ const AppContext = function () {
         _repeatBuffer = postfix.slice(-2);
 
         let result = appModel.evaluate(postfix);
-        setDisplay(result.toString(2));
+        setDigitDisplay(result.toString(2));
         _operand = new IntegerToken(result); /// Store the result for later use in the infix buffer
-    }
+    };
 
-    setDisplay('0');
+    const printExpression = function(suffix) {
+        let xpression = '';
+        for (let token of _infix) {
+            xpression += token.toString();
+        }
+        xpression += suffix;
+        if (xpression === '') {
+            return;
+        }
+
+        const elem = document.querySelector('#expressionDisplay');
+        elem.textContent = xpression;
+    };
+
+    const clearExpressionDisplay = function() {
+        document.querySelector('#expressionDisplay').innerHTML = '&nbsp;';
+    };
+
+    setDigitDisplay('0');
 };

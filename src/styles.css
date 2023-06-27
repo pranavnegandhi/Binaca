@@ -47,6 +47,16 @@ form label {
     border-radius: 0.3em;
 }
 
+form #expressionDisplay {
+	clear: both;
+	display: block;
+	text-align: right;
+	font-size: 2em;
+	font-family: monospace;
+	margin: 0 0.6em;
+	padding: 0.2em;
+}
+
 input[type="text"] {
     text-align: right;
     font-size: 3em;
@@ -62,6 +72,7 @@ input[type="text"] {
 div#controls {
     display: flex;
     flex-direction: row;
+    flex: 0.8;
 }
 
 div#controls span.column {
@@ -105,8 +116,4 @@ div#controls input.operator {
 div#controls input#buttonOperatorEquals {
     background: #a49dab;
     border-color: #8d8193;
-}
-
-div#controls input#buttonOperatorEquals {
-    height: 4.5em;
 }
