@@ -72,6 +72,7 @@ input[type="text"] {
 div#controls {
     display: flex;
     flex-direction: row;
+    flex: 0.8;
 }
 
 div#controls span.column {
@@ -115,8 +116,4 @@ div#controls input.operator {
 div#controls input#buttonOperatorEquals {
     background: #a49dab;
     border-color: #8d8193;
-}
-
-div#controls input#buttonOperatorEquals {
-    height: 4.5em;
 }
