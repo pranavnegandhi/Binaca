@@ -85,7 +85,11 @@ const AppContext = function () {
 
     const setDigitDisplay = (value) => {
         _digitDisplay = value.toString();
-        digitDisplay.value = _digitDisplay;
+        if (_digitDisplay === '0') {
+            digitDisplay.value = '';
+        } else {
+            digitDisplay.value = _digitDisplay;
+        }
     };
 
     const appendDigit = function (value) {
