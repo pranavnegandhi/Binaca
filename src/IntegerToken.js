@@ -3,12 +3,18 @@ const IntegerToken = function(value) {
 
     const getType = () => _type;
 
-    evaluate = function(stack) {
+    const getValue = () => value;
+
+    const evaluate = function(stack) {
         stack.push(value);
     };
 
+    const toStringInternal = () => getValue().toString(2);
+
     return {
-        getType: getType,
-        evaluate: evaluate
+        'getType': getType,
+        'getValue': getValue,
+        'evaluate': evaluate,
+        'toString': toStringInternal
     };
 }

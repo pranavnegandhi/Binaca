@@ -3,6 +3,8 @@ const AddToken = function() {
 
     const getType = () => _type;
 
+    const getValue = () => '+';
+
     const evaluate = function(stack) {
         const op1 = stack.pop();
         const op2 = stack.pop();
@@ -10,7 +12,9 @@ const AddToken = function() {
     };
 
     return {
-        getType: getType,
-        evaluate: evaluate
+        'getType': getType,
+        'getValue': getValue,
+        'evaluate': evaluate,
+        'toString': getValue
     };
 }
